@@ -7,6 +7,8 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Str;
+use Cookie;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -32,7 +34,9 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        $user = Auth::user();
+        $cookie = Cookie::make('user_uid', $user->uid, 0);
+        return redirect()->intended(RouteServiceProvider::HOME)->withCookie($cookie);
     }
 
     /**
@@ -49,6 +53,9 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        $user_uid = Str::uuid()->toString();
+        $cookie = Cookie::make('user_uid', $user_uid, 60*24*365*10);
+
+        return redirect('/')->withCookie($cookie);
     }
 }
