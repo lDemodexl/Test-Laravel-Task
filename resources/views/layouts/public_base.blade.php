@@ -51,5 +51,11 @@
         <main class="container-fluid pt-4 pb-4">
             @yield('content')
         </main>
+        <script
+			  src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+			  integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+			  crossorigin="anonymous"></script>
+        <script src="{{ asset('js/public.js') }}" defer></script>
+        <script src="{{ asset('js/app.js') }}" defer></script>
     </body>
 </html>
