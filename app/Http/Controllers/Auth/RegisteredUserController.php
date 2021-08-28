@@ -40,8 +40,11 @@ class RegisteredUserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-
-        $user_uid = Str::uuid()->toString();
+        if($request->hasCookie('user_uid')){
+            $user_uid = $request->cookie('user_uid');
+        }else{
+            $user_uid = Str::uuid()->toString();
+        }
 
         $user = User::create([
             'name' => $request->name,

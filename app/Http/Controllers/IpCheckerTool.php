@@ -10,6 +10,6 @@ class IpCheckerTool extends Controller
 
         $cookie_user_uid = Cookie::get('user_uid');
 
-        return view('home', compact('cookie_user_uid'));
+        return view('public.home', compact('cookie_user_uid'));
     }
 }
