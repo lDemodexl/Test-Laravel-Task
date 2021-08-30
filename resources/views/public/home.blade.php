@@ -4,7 +4,7 @@
 <section class="container">
     <div class="row">
         <div class="col-12">
-            <form action="" method="post" class="border border-white border-3 p-3">
+            <form action="" method="post" class="border border-white border-3 p-3" id="add_domains_form">
                 @csrf
                 <div class="row">
                     <div class="col-12 col-md-6 p-3">
@@ -19,20 +19,20 @@
                                     pattern="https?://.+\.\w{2,}">
                             </div>
                             <div class="col-12 mt-2">
-                                <button class="btn btn-primary">Add</button>
+                                <button class="btn btn-primary" id="add_domain_to_list">Add</button>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-6 p-3">
-                        <div id="domain_list border border-dark">
+                        <div id="domain_list" class="border border-light p-3">
 
                         </div>
                     </div>
                 </div>
-                <div class="row d-none">
+                <div class="row" id="form_action_buttons" style="display:none">
                     <div class="col-12 d-flex justify-content-end">
                         <button class="btn btn-success me-3">Proceed</button>
-                        <button class="btn btn-danger">Clear</button>
+                        <button class="btn btn-danger" id="clear_list">Clear</button>
                     </div>
                 </div>
             </form>
