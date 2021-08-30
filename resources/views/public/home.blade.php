@@ -31,7 +31,7 @@
                 </div>
                 <div class="row" id="form_action_buttons" style="display:none">
                     <div class="col-12 d-flex justify-content-end">
-                        <button class="btn btn-success me-3">Proceed</button>
+                        <button class="btn btn-success me-3" id="submit_list">Proceed</button>
                         <button class="btn btn-danger" id="clear_list">Clear</button>
                     </div>
                 </div>

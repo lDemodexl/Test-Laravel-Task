@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class domains extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'domain',
+        'fetched_id',
+        'user_uid'
+    ];
 }

@@ -5,7 +5,7 @@ $(document).ready(function(){
     if( $('#add_domains_form').length > 0 ){
 
         loadListFromStorage();
-
+        initListActions();
         $('#add_domain_to_list').on('click',function(e){
             if( $('#url_input')[0].checkValidity() ){
                 e.preventDefault();
@@ -17,6 +17,7 @@ $(document).ready(function(){
                 }
                 $('#url_input').val('');
                 displayActionBtn();
+                initListActions()
             }
         });
 
@@ -27,9 +28,72 @@ $(document).ready(function(){
                 loadListFromStorage(true);
             }
         });
+
+        $('#submit_list').on('click', function(e){
+            e.preventDefault();
+            $.ajax({
+                url: '',
+                type: 'post',
+                data: {'domains':localStorage.getItem('local_domains')},
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                statusCode: {
+                    404: function() {
+                        console.log('Something went wrong, Please contact site administrator! 404');
+                    },
+                    400: function( response ) {
+                        console.log('Something went wrong, Please contact site administrator! 400');
+                    },
+                    500: function(e) {
+                        return e;
+                    }
+                },
+                success: function( response ){
+                    var data = JSON.parse(response);
+                    if( data.status == 'success' ){
+                        localStorage.removeItem('local_domains');
+                        loadListFromStorage(true);
+                        showNotification('List of domains added to queue successfully');
+                    }else{
+                        if( data.msg ){
+                            showNotification(data.msg, 'danger');
+                        }
+                    }
+                }
+            })
+        })
+
     }
 })
 
+function showNotification(msg, type='success'){
+    var notificationsBar = $('<div class="alert alert-'+type+'" role="alert"></div>');
+    notificationsBar.text(msg);
+    $('#domain_list').parent().prepend(notificationsBar);
+    setTimeout(function(){
+        notificationsBar.remove();
+    },3000);
+}
+
+function initListActions(){
+    $('.remove-domain-btn').off('click');
+    $('.remove-domain-btn').on('click', function(){
+        var domain = $(this).closest('.row').find('input').val();
+        deleteFromLocalStorage(domain);
+        $(this).closest('.row').remove();
+        displayActionBtn();
+    })
+}
+
+function deleteFromLocalStorage( domain ){
+    var current_data = localStorage.getItem('local_domains');
+    var domains = JSON.parse(current_data);
+    var index = indexOf(domains, domain);
+    domains.splice(index, 1);
+    localStorage.setItem('local_domains', JSON.stringify(domains));
+}
 
 function create_new_list_element( domain ){
     var container = $("<div class='row mb-2 border-bottom border-ligth p-2'></div>");

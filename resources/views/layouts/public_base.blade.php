@@ -17,6 +17,7 @@
                 font-family: 'Nunito', sans-serif;
             }
         </style>
+        <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
     <body class="antialiased">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -52,8 +53,8 @@
             @yield('content')
         </main>
         <script
-			  src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
-			  integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+			  src="https://code.jquery.com/jquery-3.6.0.min.js"
+			  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 			  crossorigin="anonymous"></script>
         <script src="{{ asset('js/public.js') }}" defer></script>
         <script src="{{ asset('js/app.js') }}" defer></script>

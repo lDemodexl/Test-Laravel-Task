@@ -19,6 +19,7 @@ use App\Http\Controllers\IpCheckerTool;
 // });
 
 Route::get('/', [IpCheckerTool::class, 'index'])->name('home');
+Route::post('/', [IpCheckerTool::class, 'addList']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
