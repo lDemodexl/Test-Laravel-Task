@@ -11,7 +11,7 @@
 
         <!-- Styles -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-
+        @yield('css-container')
         <style>
             body {
                 font-family: 'Nunito', sans-serif;
@@ -28,7 +28,7 @@
                             <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">History</a>
+                            <a class="nav-link" href="{{ route('history') }}">History</a>
                         </li>
                     </ul>
                     <span class="navbar-text">
@@ -56,6 +56,7 @@
 			  src="https://code.jquery.com/jquery-3.6.0.min.js"
 			  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 			  crossorigin="anonymous"></script>
+        @yield('js-container')
         <script src="{{ asset('js/public.js') }}" defer></script>
         <script src="{{ asset('js/app.js') }}" defer></script>
     </body>

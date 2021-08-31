@@ -11,6 +11,7 @@ class domains extends Model
     protected $fillable = [
         'domain',
         'fetched_id',
-        'user_uid'
+        'user_uid',
+        'created_at'
     ];
 }

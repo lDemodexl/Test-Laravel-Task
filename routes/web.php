@@ -21,6 +21,8 @@ use App\Http\Controllers\IpCheckerTool;
 Route::get('/', [IpCheckerTool::class, 'index'])->name('home');
 Route::post('/', [IpCheckerTool::class, 'addList']);
 
+Route::get('/history', [IpCheckerTool::class, 'history'])->name('history');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

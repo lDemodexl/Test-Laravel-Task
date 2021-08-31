@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\domains;
 use Cookie;
 use Exception;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\QueryException;
 
 class IpCheckerTool extends Controller
@@ -22,7 +23,7 @@ class IpCheckerTool extends Controller
             $user_uid = $request->cookie('user_uid');
             $data = array();
             foreach( json_decode($request->domains) as $domain ){
-                array_push($data, array( 'domain'=> $domain, 'user_uid' => $user_uid));
+                array_push($data, array( 'domain'=> $domain, 'user_uid' => $user_uid, 'created_at' => Carbon::now()));
             }
             try{
             domains::insert($data);
@@ -48,5 +49,11 @@ class IpCheckerTool extends Controller
         }else{
             echo 'Error: Empty List';
         }
+    }
+
+    public function history(Request $request){
+        $user_uid = $request->cookie('user_uid');
+        $records = domains::where('user_uid', $user_uid)->orderByDesc('created_at')->get();
+        return view('public.history', compact('records'));
     }
 }
