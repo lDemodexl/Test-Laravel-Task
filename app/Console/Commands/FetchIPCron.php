@@ -41,14 +41,15 @@ class FetchIPCron extends Command
         $record = domains::where('fetched_id', NULL)->first();
         if( !empty($record) ){
             $domain = preg_replace('{http://|https://}', '', $record->domain);
-        }
-        if( !empty($domain) ){
-            $ip = gethostbyname($domain);
-        }
-        $record->fetched_id = $ip;
-        $record->save();
 
-        \Log::info("Fetch IP cron finished. Result: ". $ip );
+            if( !empty($domain) ){
+                $ip = gethostbyname($domain);
+                $record->fetched_id = $ip;
+                $record->save();
+                \Log::info("Fetch IP cron finished. Result: ". $ip );
+            }
+
+        }
         return 0;
     }
 }
